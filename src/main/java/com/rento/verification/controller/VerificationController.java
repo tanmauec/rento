@@ -28,6 +28,7 @@ public class VerificationController {
     @ApiOperation(value = "Tenant Verify Init", notes = "")
     public ResponseEntity<TenantConsentInitResponse> initTenantVerification(@RequestBody TenantConsentInitRequest request) {
         TenantConsentInitResponse response = tenantVerificationService.consentInit(request);
+        //response.getConsentResponse().setDetail(null);
         return new ResponseEntity<TenantConsentInitResponse>(response, HttpStatus.OK);
     }
 

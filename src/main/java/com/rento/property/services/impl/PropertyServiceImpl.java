@@ -1,6 +1,5 @@
 package com.rento.property.services.impl;
 
-import com.rento.core.constants.Constants;
 import com.rento.core.utils.IdGenerator;
 import com.rento.property.models.Property;
 import com.rento.property.models.PropertyAddRequest;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.rento.core.constants.Constants.PROP_ID_PREFIX;
 
@@ -25,13 +25,16 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    @Autowired
-    private UserService userService;
-
     public Property addProperty(PropertyAddRequest addRequest) {
         StoredProperty storedProperty = ConverterUtil.toDao(addRequest);
         storedProperty.setPropertyId(IdGenerator.generateNumericId(PROP_ID_PREFIX));
         return ConverterUtil.toDto(propertyRepository.save(storedProperty));
+    }
+
+    @Override
+    public List<Property> getProperties(String ownerId) {
+        return propertyRepository.getProperties(ownerId).stream()
+                .map(ConverterUtil::toDto).collect(Collectors.toList());
     }
 
     public Property rentProperty(PropertyRentRequest rentRequest) {

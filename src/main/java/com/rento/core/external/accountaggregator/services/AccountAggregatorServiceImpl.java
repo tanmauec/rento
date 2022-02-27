@@ -43,6 +43,7 @@ public class AccountAggregatorServiceImpl implements AccountAggregatorService {
                 .get()
                 .build();
         Response response = client.newCall(request).execute();
+//        System.out.println("consent status:" + response.body().string());
         return SerDe.readValue(response.body().string(), ConsentResponse.class);
     }
 

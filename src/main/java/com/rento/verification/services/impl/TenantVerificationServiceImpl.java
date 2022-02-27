@@ -46,6 +46,5 @@ public class TenantVerificationServiceImpl implements TenantVerificationService 
             throw RentoServiceException.error(ErrorCode.INTERNAL_ERROR,
                     ImmutableMap.of("Consent Init failed", ""));
         }
-
     }
 }

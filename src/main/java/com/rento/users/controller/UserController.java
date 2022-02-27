@@ -3,6 +3,7 @@ package com.rento.users.controller;
 
 import com.rento.users.models.*;
 import com.rento.users.services.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,6 +29,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/register/tenant", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("Register Tenant")
     public ResponseEntity<User> register(CreateTenantRequest request) {
         User tenant = userService.createUser(CreateUserRequest.builder()
                 .countryCode(request.getCountryCode())
@@ -40,6 +42,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register/owner", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("Register Owner")
     public ResponseEntity<User> register(CreateOwnerRequest request) {
         User owner = userService.createUser(CreateUserRequest.builder()
                 .countryCode(request.getCountryCode())
@@ -51,8 +54,9 @@ public class UserController {
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/{countryCode}/{phoneNumber}")
-    public ResponseEntity<User> getOwnerFromPhoneNumber(
+    @RequestMapping(value = "/user/{countryCode}/{phoneNumber}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("Get user from phonenumber")
+    public ResponseEntity<User> getUserFromPhoneNumber(
             @PathVariable("countryCode") String countryCode,
             @PathVariable("phoneNumber") String phoneNumber) {
         Optional<User> userOptional = userService.getUserByPhoneNumber(countryCode, phoneNumber);

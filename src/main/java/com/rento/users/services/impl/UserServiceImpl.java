@@ -3,6 +3,7 @@ package com.rento.users.services.impl;
 import com.rento.core.constants.Constants;
 import com.rento.core.utils.IdGenerator;
 import com.rento.users.models.CreateUserRequest;
+import com.rento.users.models.State;
 import com.rento.users.models.User;
 import com.rento.users.models.UserType;
 import com.rento.users.repository.TenantRepository;
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService {
         String userId = generateUserId(request);
         StoredUser storedUser = ConverterUtil.create(request);
         storedUser.setUserId(userId);
+        storedUser.setState(State.ENABLED);
         return ConverterUtil.toDto(tenantRepository.save(storedUser));
     }
 

@@ -66,7 +66,6 @@ public class ConverterUtil {
                 .password(request.getPassword())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .state(request.getState())
                 .countryCode(request.getCountryCode())
                 .primaryPhoneNumber(request.getPhoneNumber())
                 .verifiedEmailId(request.getEmailId())
